@@ -1,5 +1,4 @@
 ---
-
 # tasks file for osp.servers
 - name: Create OSP Server Instances
   os_server:
@@ -47,5 +46,3 @@
     timeout: 600
   delegate_to: localhost
   loop: '{{ servers.openstack_servers }}'
-
----

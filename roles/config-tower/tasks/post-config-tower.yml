@@ -9,7 +9,6 @@
     scm_type: git
     state: present
 
-
 - name: Machine Credentail to connect to workstation using openstack.pub
   tower_credential:
     name: Connect_to_workstation
@@ -57,7 +56,7 @@
     tower_username: admin
     tower_password: r3dh4t1!
     tower_verify_ssl: no
-    ssh_key_data: /root/.ssh/mykey.pem
+    ssh_key_data: "{{ path_to_opentlc_key }}"
     username: "{{ opentlc_login }}"
 
 - name: Remove secret

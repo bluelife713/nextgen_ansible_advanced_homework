@@ -9,6 +9,9 @@
     backup: yes
 
 - name: enable repos
+  template:
+    src: repos_template.j2
+    dest: /etc//yum.repos.d/open_three-tier-app.repo
  
-- name: install base tools and packages
-
+# - name: install base tools and packages
+# Why is this here and not in the instructions to add packages?
