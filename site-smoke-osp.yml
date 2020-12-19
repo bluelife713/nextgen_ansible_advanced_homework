@@ -1,11 +1,34 @@
 - hosts: workstation
   gather_facts: false
-  tasks:
-  - name: OpenStack servers
-  - name: Curl website
 
-  - name: Fail if 'Ansible has done its job' is not in the page content
-    fail:
-    when: "'Ansible has done its job' not in webpage.results[0].content"
+  roles:
+  
+  - name: osp-facts
+
+  tasks:
+
+  - name: Smoketest Postgres database
+    postgresql_ping:
+      db: flask_db
+      login_host: "{{ groups.appdbs[0] }}"
+      login_user: flask
+      login_password: redhat
+      ssl_mode: disable
+    delegate_to: "{{ groups.apps[0] }}"
+    run_once: true
+    tags:
+      - osp.smoke
+
+  - name: Curl website from workstation
+    uri:
+      url: "http://{{ __frontend }}/ping"
+      return_content: yes
+    loop: '{{ groups.frontends }}'
+    loop_control:
+      loop_var: __frontend
+    register: webpage
+    until: '"alive" in webpage.content'
+    retries: 10
+    delay: 1
     tags:
       - osp.smoke
