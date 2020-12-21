@@ -24,3 +24,4 @@ pip_dependencies:
   - virtualenv
   - pip
   - psycopg2-binary
+  - sqlalchemy
