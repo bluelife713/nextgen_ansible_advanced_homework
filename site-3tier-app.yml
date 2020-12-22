@@ -1,4 +1,4 @@
-- name:  sync version
+- name:  Gather fact
   hosts: workstation
   gather_facts: true
   roles:
